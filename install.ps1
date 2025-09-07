@@ -1,6 +1,3 @@
-
-# Set Wget Progress to Silent, Becuase it slows down Downloading by 50x
-echo "Setting Wget Progress to Silent, Becuase it slows down Downloading by 50x`n"
 # Show signature message in console
 Write-Host "`n=============================================" -ForegroundColor Yellow
 Write-Host " This Script is Created By AbdulQadeer" -ForegroundColor Cyan
@@ -8,7 +5,8 @@ Write-Host " Founder of ZapLogic" -ForegroundColor Cyan
 Write-Host " Visit Website: www.zaplogic.shop" -ForegroundColor Green
 Write-Host " WhatsApp: https://bit.ly/contact-to-abdul" -ForegroundColor Green
 Write-Host "=============================================`n" -ForegroundColor Yellow
-
+# Set Wget Progress to Silent, Becuase it slows down Downloading by 50x
+echo "Setting Wget Progress to Silent, Becuase it slows down Downloading by 50x`n"
 $ProgressPreference = 'SilentlyContinue'
 
 # Check JDK-21 Availability or Download JDK-21
@@ -18,7 +16,6 @@ if (!($jdk21)){
     wget "https://download.oracle.com/java/21/archive/jdk-21_windows-x64_bin.exe" -O jdk-21.exe  
     echo "`n`t`tJDK-21 Downloaded, lets start the Installation process"
     start -wait jdk-21.exe
-    rm jdk-21.exe
 }else{
     echo "Required JDK-21 is Installed"
     $jdk21
@@ -31,7 +28,6 @@ if (!($jre8)){
     wget "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=247947_0ae14417abb444ebb02b9815e2103550" -O jre-8.exe
     echo "`n`t`tJRE-8 Downloaded, lets start the Installation process"
     start -wait jre-8.exe
-    rm jre-8.exe
 }else{
     echo "`n`nRequired JRE-8 is Installed`n"
     $jre8
@@ -42,7 +38,7 @@ $version = "2025"
 $jarName = "burpsuite_pro_v$version.jar"
 
 if (Test-Path $jarName) {
-    Write-Host "Burp Suite Pro version $version is already present ($jarName). Skipping download."
+    Write-Host "Burp Suite Pro version $version is already present ($jarName). Skipping download.`n"
 } else {
     Write-Host "Downloading Burp Suite Professional v$version..."
     Invoke-WebRequest -Uri "https://portswigger.net/burp/releases/download?product=pro&type=Jar" `
@@ -54,7 +50,6 @@ if (Test-Path burp.bat) {rm burp.bat}
 $path = "java --add-opens=java.desktop/javax.swing=ALL-UNNAMED--add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.Opcodes=ALL-UNNAMED -javaagent:`"$pwd\loader.jar`" -noverify -jar `"$pwd\burpsuite_pro_v$version.jar`""
 $path | add-content -path Burp.bat
 echo "`nBurp.bat file is created"
-
 
 # Creating Burp-Suite-Pro.vbs File for background execution
 if (Test-Path "$pwd\Burp-Suite-Pro.vbs") {
@@ -81,7 +76,6 @@ $shortcut.Save()
 
 Write-Host "`nShortcut 'Burp Suite' created on Desktop"
 
-
 # Download loader if it not exists
 if (!(Test-Path loader.jar)){
     echo "`nDownloading Loader ...."
@@ -99,7 +93,6 @@ start-process java.exe -argumentlist "-jar loader.jar"
 echo "`n`nStarting Burp Suite Professional"
 java --add-opens=java.desktop/javax.swing=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.Opcodes=ALL-UNNAMED -javaagent:"loader.jar" -noverify -jar "burpsuite_pro_v$version.jar"
 
-
 # Show popup message
 Add-Type -AssemblyName PresentationFramework
 [System.Windows.MessageBox]::Show(
@@ -111,4 +104,3 @@ Add-Type -AssemblyName PresentationFramework
 # Auto-open links in default browser
 Start-Process "https://www.github.com/zaplogic"
 Start-Process "https://bit.ly/contact-to-abdul"
-
