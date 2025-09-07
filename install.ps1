@@ -20,7 +20,6 @@ if (!($jdk21)){
     echo "Required JDK-21 is Installed"
     $jdk21
 }
-
 # Check JRE-8 Availability or Download JRE-8
 $jre8 = Get-WmiObject -Class Win32_Product -filter "Vendor='Oracle Corporation'" |where Caption -clike "Java 8 Update *"
 if (!($jre8)){
